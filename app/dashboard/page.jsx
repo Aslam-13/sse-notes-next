@@ -18,30 +18,28 @@ export default function Dashboard() {
     setNotes(data);
   };
 
-     const startEdit = (id) => {
-  setNotes((prev) =>
-    prev.map((note) =>
-      note._id === id ? { ...note, editing: true } : note
-    )
-  );
-};
+  const startEdit = (id) => {
+    setNotes((prev) =>
+      prev.map((note) =>
+        note._id === id ? { ...note, editing: true } : note
+      )
+    );
+  };
 
-const cancelEdit = (id) => {
-  fetchNotes(); // Re-fetch to restore original values
-};
+  const cancelEdit = (id) => {
+    fetchNotes(); // Re-fetch to restore original values
+  };
 
-const saveNote = async (note) => {
-  await fetch(`/api/notes/${note._id}`, {
-    method: 'PUT',
-    body: JSON.stringify({
-      title: note.title,
-      content: note.content,
-    }),
-  });
-  fetchNotes();
-};
-
-
+  const saveNote = async (note) => {
+    await fetch(`/api/notes/${note._id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        title: note.title,
+        content: note.content,
+      }),
+    });
+    fetchNotes();
+  };
 
   const addNote = async (e) => {
     e.preventDefault();
@@ -96,70 +94,69 @@ const saveNote = async (note) => {
         </LoadingButton>
       </form>
 
-{notes.map(note => (
-  <div key={note._id} className="border p-4 rounded mb-4 shadow">
-    {note.editing ? (
-      <>
-        <input
-          className="w-full p-2 border rounded mb-2"
-          value={note.title}
-          onChange={(e) =>
-            setNotes((prev) =>
-              prev.map((n) =>
-                n._id === note._id ? { ...n, title: e.target.value } : n
-              )
-            )
-          }
-        />
-        <textarea
-          className="w-full p-2 border rounded"
-          value={note.content}
-          onChange={(e) =>
-            setNotes((prev) =>
-              prev.map((n) =>
-                n._id === note._id ? { ...n, content: e.target.value } : n
-              )
-            )
-          }
-        />
-        <div className="flex gap-2 mt-2">
-          <button
-            onClick={() => saveNote(note)}
-            className="bg-green-500 text-white px-3 py-1 rounded"
-          >
-            Save
-          </button>
-          <button
-            onClick={() => cancelEdit(note._id)}
-            className="bg-gray-300 px-3 py-1 rounded"
-          >
-            Cancel
-          </button>
+      {notes.map(note => (
+        <div key={note._id} className="border p-4 rounded mb-4 shadow">
+          {note.editing ? (
+            <>
+              <input
+                className="w-full p-2 border rounded mb-2"
+                value={note.title}
+                onChange={(e) =>
+                  setNotes((prev) =>
+                    prev.map((n) =>
+                      n._id === note._id ? { ...n, title: e.target.value } : n
+                    )
+                  )
+                }
+              />
+              <textarea
+                className="w-full p-2 border rounded"
+                value={note.content}
+                onChange={(e) =>
+                  setNotes((prev) =>
+                    prev.map((n) =>
+                      n._id === note._id ? { ...n, content: e.target.value } : n
+                    )
+                  )
+                }
+              />
+              <div className="flex gap-2 mt-2">
+                <button
+                  onClick={() => saveNote(note)}
+                  className="bg-green-500 text-white px-3 py-1 rounded"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => cancelEdit(note._id)}
+                  className="bg-gray-300 px-3 py-1 rounded"
+                >
+                  Cancel
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <h3 className="text-lg font-semibold">{note.title}</h3>
+              <p className="text-gray-700">{note.content}</p>
+              <div className="flex gap-2 mt-2">
+                <button
+                  onClick={() => startEdit(note._id)}
+                  className="text-blue-600 text-sm"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => deleteNote(note._id)}
+                  className="text-red-600 text-sm"
+                >
+                  Delete
+                </button>
+              </div>
+            </>
+          )}
         </div>
-      </>
-    ) : (
-      <>
-        <h3 className="text-lg font-semibold">{note.title}</h3>
-        <p className="text-gray-700">{note.content}</p>
-        <div className="flex gap-2 mt-2">
-          <button
-            onClick={() => startEdit(note._id)}
-            className="text-blue-600 text-sm"
-          >
-            Edit
-          </button>
-          <button
-            onClick={() => deleteNote(note._id)}
-            className="text-red-600 text-sm"
-          >
-            Delete
-          </button>
-        </div>
-      </>
-    )}
-  </div>
-))}
-
+      ))}
     </div>
   );
 }
