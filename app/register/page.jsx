@@ -12,6 +12,18 @@ export default function RegisterPage() {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
+  // Email validation
+  if (!email || !password) {
+    setError('Please fill in all fields');
+    setIsLoading(false);
+    return;
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    setError('Please enter a valid email address');
+    setIsLoading(false);
+    return;
+  }
   setIsLoading(true);
   setError('');
   const res = await fetch('/api/auth/register', {
