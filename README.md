@@ -1,36 +1,193 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📝 Full-Stack Note-Taking App
 
-## Getting Started
+A secure and modern full-stack **Note-Taking Web App** built with:
 
-First, run the development server:
+- ⚡️ [Next.js (App Router)](https://nextjs.org/docs/app)
+- 🌿 [MongoDB + Mongoose](https://mongoosejs.com/)
+- 🔐 JWT Authentication with secure cookies
+- 💨 Tailwind CSS for a clean, responsive UI
+
+---
+
+## 📦 Features
+
+### ✅ Authentication
+- User registration and login
+- Secure password hashing (`bcrypt`)
+- JWT-based auth via HTTP-only cookies
+- Auth middleware to protect API routes
+
+### 📝 Notes Management (CRUD)
+- Create, view, update, and delete notes
+- Notes are private and user-specific
+- Notes contain title, content, and timestamps
+
+### 💄 UI/UX
+- Fully responsive with Tailwind CSS
+- Reusable NoteCard component
+- Error banners, loading indicators
+- Inline editing, modals, and feedback
+
+---
+
+## 📁 Project Structure
+
+.
+```├── app/ # Next.js App Router (frontend & API routes)
+│ ├── api/ # Auth and Notes API routes
+│ ├── dashboard/ # Authenticated dashboard page
+│ ├── login/ # Login page
+│ ├── register/ # Registration page
+│ ├── layout.jsx # App layout (Navbar, etc.)
+│ └── page.jsx # Homepage
+├── components/ # Reusable UI components (LoadingButton)
+├── lib/ # Utilities: DB, JWT, auth middleware
+├── models/ # Mongoose schemas
+├── public/ # Static assets
+├── styles/ # Global styles
+├── .env.local # Environment variables
+└── README.md```
+ 
+---
+
+## ⚙️ Setup & Installation
+
+### 1. Clone the Repository
 
 ```bash
+git clone https://github.com/your-username/your-repo-name
+cd your-repo-name
+2. Install Dependencies 
+npm install
+3. Setup Environment Variables
+Create a .env.local file at the root:
+
+ 
+MONGODB_URI=your_mongo_connection_string
+JWT_SECRET=your_jwt_secret
+🚀 Run Locally
+ 
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Visit http://localhost:3000
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🔐 Authentication APIs
+POST /api/auth/register
+Registers a new user
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+✅ Request Body:
+json
+Copy
+Edit
+{
+  "name": "John",
+  "email": "john@example.com",
+  "password": "123456"
+}
+Returns: Set-Cookie with JWT token
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+POST /api/auth/login
+Logs in the user
 
-## Learn More
+✅ Request Body:
+json
+Copy
+Edit
+{
+  "email": "john@example.com",
+  "password": "123456"
+}
+Returns: Set-Cookie with JWT token
 
-To learn more about Next.js, take a look at the following resources:
+GET /api/auth/logout
+Logs out the user by clearing the auth cookie.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+📝 Notes APIs (Authenticated)
+All requests must include a valid HTTP-only cookie with the JWT token.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+GET /api/notes
+Returns all notes for the logged-in user.
 
-## Deploy on Vercel
+POST /api/notes
+Creates a new note.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+✅ Request Body:
+json
+Copy
+Edit
+{
+  "title": "Meeting Notes",
+  "content": "Discussed roadmap"
+}
+PUT /api/notes/:id
+Updates a note.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+✅ Request Body:
+json
+Copy
+Edit
+{
+  "title": "Updated Title",
+  "content": "Updated content"
+}
+DELETE /api/notes/:id
+Deletes a note by its ID.
+
+🧪 Validation & Security
+Passwords hashed with bcrypt
+
+JWT signed and verified with a secret
+
+Middleware to protect routes
+
+Error handling for:
+
+Duplicate email
+
+Invalid login
+
+Unauthorized access
+
+Note not found
+
+🖼️ UI Screens
+Register: /register
+
+Login: /login
+
+Dashboard: /dashboard (requires auth)
+
+View, Add, Edit, Delete notes
+
+✨ Tech Stack
+Layer	Tools
+Frontend	Next.js (App Router), Tailwind CSS
+Backend	Next.js API Routes (Node.js)
+Database	MongoDB (via Mongoose)
+Auth	JWT + bcrypt, HTTP-only cookies
+Styling	Tailwind CSS
+
+📌 Future Improvements
+Global toast notifications
+
+Note pinning, color labels
+
+Search & filter
+
+Markdown editor
+
+Dark mode toggle
+
+Deployment on Vercel
+
+👨‍💻 About This Project 
+
+Full-stack NextJs framework
+
+JWT authentication with secure handling
+
+RESTful API design with Next.js App Router
+
+MongoDB integration and schema modeling
+
+Clean UI, responsive design, and error feedback
+
