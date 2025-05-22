@@ -32,7 +32,7 @@ const cancelEdit = (id) => {
 
 const saveNote = async (note) => {
   await fetch(`/api/notes/${note._id}`, {
-    method: 'PATCH',
+    method: 'PUT',
     body: JSON.stringify({
       title: note.title,
       content: note.content,

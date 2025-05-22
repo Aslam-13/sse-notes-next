@@ -55,16 +55,18 @@ A secure and modern full-stack **Note-Taking Web App** built with:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-repo-name
-cd your-repo-name
+git clone https://github.com/Aslam-13/sse-notes-next
+cd sse-notes-next
+
 2. Install Dependencies 
 npm install
+
 3. Setup Environment Variables
 Create a .env.local file at the root:
 
- 
 MONGODB_URI=your_mongo_connection_string
 JWT_SECRET=your_jwt_secret
+
 🚀 Run Locally
  
 npm run dev

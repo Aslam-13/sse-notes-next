@@ -42,20 +42,3 @@ export async function DELETE(req, { params }) {
   return Response.json({ message: 'Note deleted' });
 }
 
-export async function PATCH(req, { params }) {
-  await connectDB();
-  const user = await getUserFromToken();
-  if (!user) return new Response('Unauthorized', { status: 401 });
-
-  const { title, content } = await req.json();
-
-  const note = await Note.findOneAndUpdate(
-    { _id: params.id, user: user._id },
-    { title, content, updatedAt: new Date() },
-    { new: true }
-  );
-
-  if (!note) return new Response('Note not found', { status: 404 });
-
-  return Response.json(note);
-}
