@@ -135,29 +135,21 @@ DELETE /api/notes/:id
 Deletes a note by its ID.
 
 🧪 Validation & Security
+
 Passwords hashed with bcrypt
-
 JWT signed and verified with a secret
-
 Middleware to protect routes
-
 Error handling for:
-
 Duplicate email
-
 Invalid login
-
 Unauthorized access
-
 Note not found
 
 🖼️ UI Screens
 Register: /register
-
 Login: /login
 
 Dashboard: /dashboard (requires auth)
-
 View, Add, Edit, Delete notes
 
 ✨ Tech Stack
@@ -168,28 +160,20 @@ Database	MongoDB (via Mongoose)
 Auth	JWT + bcrypt, HTTP-only cookies
 Styling	Tailwind CSS
 
-📌 Future Improvements
+📌 ## Future Improvements
 Global toast notifications
 
 Note pinning, color labels
-
 Search & filter
-
 Markdown editor
-
 Dark mode toggle
-
 Deployment on Vercel
 
-👨‍💻 About This Project 
+👨‍💻 ## About This Project 
 
 Full-stack NextJs framework
-
 JWT authentication with secure handling
-
 RESTful API design with Next.js App Router
-
 MongoDB integration and schema modeling
-
 Clean UI, responsive design, and error feedback
 
